@@ -1,6 +1,7 @@
 const express = require("express")
 const accountCreation = require("../controller/account-controller")
 const login = require("../controller/login-controller")
+const verifyToken = require("../middleware/verify-token")
 const router = express.Router()
 
 router.post("/create-account", accountCreation)
