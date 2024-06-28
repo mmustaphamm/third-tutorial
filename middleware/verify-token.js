@@ -14,7 +14,7 @@ function verifyToken(request, response, next) {
             console.log(error)
             return response.status(403).json({ message: "FORBIDDEN."})
         }
-        console.log(result)
+        request.data = result
         next()
     })
 }

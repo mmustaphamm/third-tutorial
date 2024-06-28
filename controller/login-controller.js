@@ -20,7 +20,7 @@ const login = async (request, response)=> {
          const userData = value
           //check if user with email already exist
         const existingUser = await findUserByEmail(userData.email)
-        console.log(existingUser)
+       
         if (!existingUser || existingUser.length === 0) {
             return response.status(404).json({ message: "This email does not exist" })
         }
@@ -33,9 +33,9 @@ const login = async (request, response)=> {
         }
 
         const signNature = {
-            name: existingUser.firstName + ' ' + existingUser.lastName,
-            id: existingUser.id,
-            email: existingUser.emailAddress
+            name: existingUser[0].lastName + ' ' + existingUser[0].firstName,
+            id: existingUser[0].id,
+            email: existingUser[0].emailAddress
         }
 
         // GENERATE JWT TOKEN 

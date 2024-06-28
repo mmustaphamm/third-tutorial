@@ -1,6 +1,7 @@
 const { createAccounts } = require("../model/account-service")
 const { findUserByEmail } = require("../model/account-service")
 const { findPhoneNumber } = require("../model/account-service")
+const genAccountNo = require("../utils/generate-account-number")
 const bcrypt = require("bcrypt")
 const Joi = require("joi")
 
@@ -14,7 +15,7 @@ async function createAccount(request, response) {
       gender: Joi.string().valid('male', 'female').required(),
       email: Joi.string().email().required(),
       address: Joi.string().required(),
-      phoneNumber: Joi.string().regex(/^(\+234)\d{8,12}$/),
+      phoneNumber: Joi.string().regex(/^(\+234)\d{10}$/),
       password: Joi.string().min(6).required()
    }).unknown(false)
 
@@ -25,7 +26,6 @@ async function createAccount(request, response) {
    }
     const userData = value
     const createdAt = new Date()
-    console.log(createdAt)
 
     //hash user password before saving to the db
     const hashPassword = await bcrypt.hash(userData.password, 10)
@@ -46,6 +46,10 @@ async function createAccount(request, response) {
    if (existingPhoneNumber.length !== 0) {
       return response.status(400).json({ message: "User with the phone number already exist"})
    }
+
+  const acctNo = await genAccountNo(userData.phoneNumber)
+
+  userData.accountNumber = acctNo
 
     await createAccounts(userData)
     response.status(201).json({ message: "Account created successfully" })

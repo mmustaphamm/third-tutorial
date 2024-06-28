@@ -38,6 +38,19 @@ async function findEmail(email) {
     })
 }
 
+async function findSortCode(sortCode) {
+    const query = 'SELECT sortCode from account WHERE sortCode = ?'
+    return new Promise((resolve, reject) => {
+        dbConnection.query(query, [sortCode], (error, result)=>{
+            if(error){
+                reject(err)
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}
+
 async function findPhoneNumber(phoneNumber) {
     const query = 'SELECT * from account WHERE phoneNumber = ?'
     return new Promise((resolve, reject) => {
@@ -55,5 +68,6 @@ module.exports = {
     createAccounts,
     findUserByEmail,
     findPhoneNumber,
-    findEmail
+    findEmail,
+    findSortCode
 }
