@@ -1,10 +1,9 @@
-const express = require("express")
 const Joi = require("joi")
-const { findUserByEmail } = require("../model/account-service")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const { findAdminByEmail } = require("../../model/user-management")
 
-const login = async (request, response)=> {
+const loginAdmin = async (request, response)=> {
     try {
         const schema = Joi.object({
             email: Joi.string().email().required(),
@@ -17,33 +16,32 @@ const login = async (request, response)=> {
             return response.status(400).json({ message: error.details[0].message})
          }
 
-         const userData = value
+         const adminInput = value
           //check if user with email already exist
-        const existingUser = await findUserByEmail(userData.email)
+        const existingAdmin = await findAdminByEmail(adminInput.email)
        
-        if (!existingUser || existingUser.length === 0) {
+        if (!existingAdmin|| existingAdmin.length === 0) {
             return response.status(404).json({ message: "This email does not exist" })
         }
 
         // compare passwords using bcrypt
-        const match = await bcrypt.compare(userData.password, existingUser[0].password)
+        const match = await bcrypt.compare(adminInput.password, existingAdmin[0].password)
 
         if (!match) {
             return response.status(401).json({ message: "Invalid password" })
         }
 
-        const user = {
-            name: existingUser[0].firstName + ' ' + existingUser[0].lastName,
-            id: existingUser[0].id,
-            email: existingUser[0].emailAddress
+        const admin = {
+            id: existingAdmin[0].id,
+            email: existingAdmin[0].email,
+            role: existingAdmin[0].role
         }
 
-        // GENERATE JWT TOKEN 
-        const token = jwt.sign(user, process.env.SECRET_KEY, {expiresIn: '1h'})
+        // GENERATE ADMIN JWT TOKEN 
+        const token = jwt.sign(admin, process.env.ADMIN_SECRET_KEY, {expiresIn: '1h'})
 
         return response.status(200).json({
             message: "Login successful", 
-            email: existingUser[0].emailAddress,
             token
         })
 
@@ -53,4 +51,4 @@ const login = async (request, response)=> {
     }
 }
 
-module.exports = login
+module.exports = loginAdmin

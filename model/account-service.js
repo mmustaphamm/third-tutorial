@@ -1,9 +1,9 @@
 const dbConnection = require('../config/db-connection')
 
 async function createAccounts(userData) {
-    const query = 'INSERT INTO account (firstName, lastName, gender, address, phoneNumber, createdAt, emailAddress, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    const { firstName, lastName, gender, address, phoneNumber, createdAt, email, password } = userData;
-    const values = [firstName, lastName, gender, address, phoneNumber, createdAt, email, password]
+    const query = 'INSERT INTO account (firstName, lastName, gender, address, phoneNumber, createdAt, emailAddress, password, accountNumber, identityNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const { firstName, lastName, gender, address, phoneNumber, createdAt, email, password, accountNumber, identityNumber } = userData;
+    const values = [firstName, lastName, gender, address, phoneNumber, createdAt, email, password, accountNumber, identityNumber]
     dbConnection.query(query, values, (error, result) => {
         if (error) {
             throw error
@@ -51,14 +51,14 @@ async function findSortCode(sortCode) {
     })
 }
 
-async function findPhoneNumber(phoneNumber) {
-    const query = 'SELECT * from account WHERE phoneNumber = ?'
+async function getUserById(id) {
+    const query = 'SELECT * FROM account WHERE id = ?'
     return new Promise((resolve, reject) => {
-        dbConnection.query(query, [phoneNumber], (error, result)=>{
+        dbConnection.query(query, [id], (error, result)=>{
             if(error){
                 reject(err)
             } else {
-                resolve(result)
+                resolve(result[0])
             }
         })
     })
@@ -67,7 +67,7 @@ async function findPhoneNumber(phoneNumber) {
 module.exports = {
     createAccounts,
     findUserByEmail,
-    findPhoneNumber,
     findEmail,
-    findSortCode
+    findSortCode,
+    getUserById,
 }

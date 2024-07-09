@@ -16,6 +16,7 @@ async function createAccount(request, response) {
       email: Joi.string().email().required(),
       address: Joi.string().required(),
       phoneNumber: Joi.string().regex(/^(\+234)\d{10}$/),
+      identityNumber: Joi.string().length(8).optional(),
       password: Joi.string().min(6).required()
    }).unknown(false)
 
@@ -52,7 +53,14 @@ async function createAccount(request, response) {
   userData.accountNumber = acctNo
 
     await createAccounts(userData)
-    response.status(201).json({ message: "Account created successfully" })
+    response.status(201).json({
+       success: true, 
+       message: "Account created successfully",
+       user_information: {
+         accountNumber: acctNo,
+         sort_code: process.env.SORT_CODE
+       }
+      })
    } catch (error) {
     console.log(error)
     return response.status(500).json({ message: "Internal server error"})

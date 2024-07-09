@@ -30,3 +30,7 @@ TRANSACTION MANAGEMENT
 SECURITY AND SETTINGS
 1 - /change-password: endpoint to allow users to change password
 2- reset-password: endpoint to reset password
+
+transfer flow chart https://lucid.app/lucidspark/6418e8ce-af7a-4242-8342-529ab2eb10d9/edit?viewport_loc=969%2C147%2C3703%2C1720%2C0_0&invitationId=inv_4ee5074e-b83b-4a51-9be0-525663cbbc4d
+
+deposit flow chat https://lucid.app/lucidspark/b5425b48-07f6-43f0-886f-9b54bf11841b/edit?viewport_loc=-2836%2C-1797%2C4320%2C2007%2C0_0&invitationId=inv_8820d439-d584-47b6-8a41-85026bc9c341

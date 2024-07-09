@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 
-function verifyToken(request, response, next) {
+function verifyTokenAdmin(request, response, next) {
     const bearerHeader = request.headers['authorization']
 
     if (bearerHeader === undefined || bearerHeader === null) {
@@ -14,12 +14,14 @@ function verifyToken(request, response, next) {
             console.log(error)
             return response.status(403).json({ message: "FORBIDDEN."})
         }
-        request.user = result
+
+        if (!result.role) {
+            return response.status(401).json({ message: "Authentication failed. Admin isn't assigned a role."})
+        }
+
+        request.admin = result
         next()
     })
 }
 
-module.exports = verifyToken
-
-const obj = {name: "dom"}
-obj.status = true
+module.exports = verifyTokenAdmin
