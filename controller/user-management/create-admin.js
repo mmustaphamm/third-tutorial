@@ -9,7 +9,7 @@ async function createAdmin(request, response) {
       full_name: Joi.string().max(30).required(),
       email: Joi.string().email().required(),
       password: Joi.string().min(6).required(),
-      role: Joi.string().valid("superadmin", "admin", "moderator").required()
+      role: Joi.string().valid("superadmin", "admin").required()
    }).unknown(false)
 
    const { error, value } = schema.validate(request.body)

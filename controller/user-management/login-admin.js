@@ -37,7 +37,7 @@ const loginAdmin = async (request, response)=> {
             role: existingAdmin[0].role
         }
 
-        // GENERATE ADMIN JWT TOKEN 
+        // GENERATE ADMIN JWT TOKEN
         const token = jwt.sign(admin, process.env.ADMIN_SECRET_KEY, {expiresIn: '1h'})
 
         return response.status(200).json({

@@ -1,6 +1,6 @@
 const { createAccounts } = require("../model/account-service")
 const { findUserByEmail } = require("../model/account-service")
-const { findPhoneNumber } = require("../model/account-service")
+// const { findPhoneNumber } = require("../model/account-service")
 const genAccountNo = require("../utils/generate-account-number")
 const bcrypt = require("bcrypt")
 const Joi = require("joi")
@@ -43,10 +43,10 @@ async function createAccount(request, response) {
       return response.status(400).json({ message: "User with the email already exists." })
    }
 
-   const existingPhoneNumber = await findPhoneNumber(userData.phoneNumber)
-   if (existingPhoneNumber.length !== 0) {
-      return response.status(400).json({ message: "User with the phone number already exist"})
-   }
+   // const existingPhoneNumber = await findPhoneNumber(userData.phoneNumber)
+   // if (existingPhoneNumber.length !== 0) {
+   //    return response.status(400).json({ message: "User with the phone number already exist"})
+   // }
 
   const acctNo = await genAccountNo(userData.phoneNumber)
 

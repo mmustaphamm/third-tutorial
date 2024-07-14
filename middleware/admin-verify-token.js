@@ -9,7 +9,7 @@ function verifyTokenAdmin(request, response, next) {
 
     const bearerToken = bearerHeader.split(' ')[1]
 
-    jwt.verify(bearerToken, process.env.SECRET_KEY, (error, result) => {
+    jwt.verify(bearerToken, process.env.ADMIN_SECRET_KEY, (error, result) => {
         if(error) {
             console.log(error)
             return response.status(403).json({ message: "FORBIDDEN."})
