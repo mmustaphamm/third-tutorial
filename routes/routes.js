@@ -7,6 +7,7 @@ const balanceCheck = require("../controller/transaction-management/check-balance
 const verifyUser = require("../controller/transaction-management/verify-user")
 const depositFunds = require("../controller/transaction-management/deposit-funds")
 const withdrawFunds = require("../controller/transaction-management/withdraw-funds")
+const changePassword = require("../controller/security-settings/change-password")
 const router = express.Router()
 
 router.post("/create-account", accountCreation)
@@ -18,6 +19,7 @@ router.post("/verify-user", verifyUser)
 router.get("/check-balance", balanceCheck)
 router.post("/deposit-funds", depositFunds)
 router.post("/withdraw-funds", withdrawFunds)
+router.post("/change-password", changePassword)
 
 
 module.exports = router
