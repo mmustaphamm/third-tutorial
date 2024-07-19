@@ -39,6 +39,7 @@ async function changePassword(request, response) {
          return response.status(200).json({ message: "your password has been changed successfully."})
     } catch (error) {
         console.log(error)
+        response.status(500).json({ message: "An error occurred"})
     }
 }
 

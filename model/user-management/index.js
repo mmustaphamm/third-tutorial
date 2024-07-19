@@ -76,6 +76,19 @@ async function updateUsers(id, data) {
     })
 }
 
+async function updateUserWithEmail(email, data) {
+    const query = 'UPDATE accountss SET ? WHERE emailAddress = ?'
+    return new Promise((resolve, reject) => {
+        dbConnection.query(query, [data, email], (error, result)=>{
+            if(error){
+                reject(error)
+            } else {
+                resolve(result)
+            }
+        })
+    })
+}
+
 
 module.exports = {
     findAdminByEmail,
@@ -83,5 +96,6 @@ module.exports = {
     getUsersByAdmin,
     getUserById,
     updateUsers,
-    deleteUserr
+    deleteUserr,
+    updateUserWithEmail
 }
