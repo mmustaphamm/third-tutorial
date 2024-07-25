@@ -8,7 +8,7 @@ async function getSingleUser(request, response) {
 
         const user = await getUserById(userid)
 
-        if(user.length ===0 ){
+        if(user.length === 0 ){
             return response.status(404).json({ message: "User not found"})
         }
         return response.status(200).json({ success: true, data: user})
