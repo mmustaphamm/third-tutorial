@@ -17,7 +17,7 @@ async function findUserByEmail(email) {
     return new Promise((resolve, reject) => {
         dbConnection.query(query, [email], (error, result)=>{
             if(error){
-                reject(err)
+                reject(error)
             } else {
                 resolve(result)
             }

@@ -118,15 +118,165 @@ router.post("/login", login)
 
 router.post("/reset-link", resetPasswordLink)
 router.get("/verify-token/:token", resetPasswordVerifyToken)
+
+/**
+ * @swagger
+ * /api/reset-password:
+ *   post:
+ *     summary: Verify reset password
+ *     tags: [Password]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: The reset token
+ *                 example: abc123
+ *               newPassword:
+ *                 type: string
+ *                 description: The new password
+ *                 example: NewPassword
+ *     responses:
+ *       '200':
+ *         description: Password reset successfully
+ *       '400':
+ *         description: Failed to reset password
+ */
 router.post("/reset-password", reset)
 
 router.use(verifyToken)
+
+/**
+ * @swagger
+ * /api/transfers:
+ *   post:
+ *     summary: Transfer funds
+ *     tags: [Transaction]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amount:
+ *                 type: string
+ *                 description: amount to transfer
+ *                 example: 5000
+ *               sortCode:
+ *                 type: string
+ *                 description: Unique transfer bank code
+ *                 example: 000989
+ *               accountNumber:
+ *                 description: Recipient's account number
+ *                 example: 7065873212
+ *               accountHolderName:
+ *                 description: Recipient's account name
+ *                 example: Muhammed Mustapha
+ *     responses:
+ *       '200':
+ *         description: Funds transferred successfully
+ *       '400':
+ *         description: Failed to transfer funds
+ */
 router.post("/transfers", transferFunds)
+
+/**
+ * @swagger
+ * /api/verify-user:
+ *   post:
+ *     summary: Transfer funds
+ *     tags: [Transaction]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: the ID of the user to verify
+ *                 example: 1
+ *     responses:
+ *       '200':
+ *         description: Funds transferred successfully
+ *       '400':
+ *         description: Failed to transfer funds
+ */
 router.post("/verify-user", verifyUser)
+
+/**
+ * @swagger
+ * /api/check-balance:
+ *   post:
+ *     summary: Transfer funds
+ *     tags: [Transaction]
+ *     responses:
+ *       '200':
+ *         description: Funds transferred successfully
+ *       '400':
+ *         description: Failed to transfer funds
+ */
 router.get("/check-balance", balanceCheck)
+
+/**
+ * @swagger
+ * /api/deposit-funds:
+ *   post:
+ *     summary: Transfer funds
+ *     tags: [Transaction]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amount:
+ *                 type: string
+ *                 description: Amount to send
+ *                 example: 12300
+ *     responses:
+ *       '200':
+ *         description: Funds transferred successfully
+ *       '400':
+ *         description: Failed to transfer funds
+ */
 router.post("/deposit-funds", depositFunds)
+
+/**
+ * @swagger
+ * /api/withdraw-funds:
+ *   post:
+ *     summary: Transfer funds
+ *     tags: [Transaction]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               amount:
+ *                 type: string
+ *                 description: Amount to send
+ *                 example: 12300
+ *               accountNumber:
+ *                 type: string
+ *                 description: Account to withdraw from
+ *                 example: 7085647382
+ *     responses:
+ *       '200':
+ *         description: Funds transferred successfully
+ *       '400':
+ *         description: Failed to transfer funds
+ */
 router.post("/withdraw-funds", withdrawFunds)
 router.post("/change-password", changePassword)
-
 
 module.exports = router
