@@ -1,4 +1,4 @@
-const { createAccounts } = require("../model/account-service")
+const { createAccounts, getUserById } = require("../model/account-service")
 const { findUserByEmail } = require("../model/account-service")
 // const { findPhoneNumber } = require("../model/account-service")
 const genAccountNo = require("../utils/generate-account-number")
@@ -52,14 +52,12 @@ async function createAccount(request, response) {
 
   userData.accountNumber = acctNo
 
-    await createAccounts(userData)
+    const createdUser = await createAccounts(userData)
+    const createdUserDetails = await getUserById(createdUser.insertId)
     response.status(201).json({
        success: true, 
        message: "Account created successfully",
-       user_information: {
-         accountNumber: acctNo,
-         sort_code: process.env.SORT_CODE
-       }
+       createdUserDetails
       })
    } catch (error) {
     console.log(error)

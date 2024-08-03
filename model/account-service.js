@@ -4,11 +4,13 @@ async function createAccounts(userData) {
     const query = 'INSERT INTO account (firstName, lastName, gender, address, phoneNumber, createdAt, emailAddress, password, accountNumber, identityNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const { firstName, lastName, gender, address, phoneNumber, createdAt, email, password, accountNumber, identityNumber } = userData;
     const values = [firstName, lastName, gender, address, phoneNumber, createdAt, email, password, accountNumber, identityNumber]
-    dbConnection.query(query, values, (error, result) => {
-        if (error) {
-            throw error
-        }
-        return result
+    return new Promise((resolve, reject) => {
+        dbConnection.query(query, values, (error, result) => {
+            if (error) {
+                reject( error)
+            }
+            resolve(result)
+        })
     })
 }
 
