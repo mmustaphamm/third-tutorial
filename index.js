@@ -5,7 +5,6 @@ const swaggerJSDoc = require('swagger-jsdoc')
 const route = require('./routes/routes')
 const adminRoute = require('./routes/admin-routes')
 const morgan = require('morgan')
-const cors = require('cors')
 const app = express()
 const port = 5000
 
@@ -26,21 +25,8 @@ const swaggerOption = {
     apis: ["./routes/*.js"]
 }
 
-const allowedOrigins = ['http://localhost:3000', 'http://another-example.com'];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  optionsSuccessStatus: 200
-};
-
 const swaggerDocs = swaggerJSDoc(swaggerOption)
 app.use(morgan('tiny'))
-app.use(cors(corsOptions))
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 app.use(express.json())
