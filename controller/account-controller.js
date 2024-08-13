@@ -15,7 +15,7 @@ async function createAccount(request, response) {
       gender: Joi.string().valid('male', 'female').required(),
       email: Joi.string().email().required(),
       address: Joi.string().required(),
-      phoneNumber: Joi.string().regex(/^(\+234)\d{10}$/),
+      phoneNumber: Joi.string().regex(/^(\+234)\d{10}$/).required(),
       identityNumber: Joi.string().length(8).optional(),
       password: Joi.string().min(6).required()
    }).unknown(false)
