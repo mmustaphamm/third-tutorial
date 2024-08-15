@@ -41,6 +41,6 @@ app.get('/test', (request, response) => {
     })
 })
 
-app.listen(port, ()=> {
+app.listen(5000, ()=> {
     console.log(`Now listening on port ${port}`)
 })
