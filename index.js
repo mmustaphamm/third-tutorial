@@ -7,6 +7,7 @@ const adminRoute = require('./routes/admin-routes')
 const morgan = require('morgan')
 const app = express()
 const port = 5000
+const cors = require('cors')
 
 const swaggerOption = {
     swaggerDefinition: {
@@ -26,6 +27,7 @@ const swaggerOption = {
 }
 
 const swaggerDocs = swaggerJSDoc(swaggerOption)
+appp.use(cors())
 app.use(morgan('tiny'))
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
