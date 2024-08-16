@@ -27,7 +27,7 @@ const swaggerOption = {
 }
 
 const swaggerDocs = swaggerJSDoc(swaggerOption)
-appp.use(cors())
+app.use(cors())
 app.use(morgan('tiny'))
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
